@@ -18,13 +18,13 @@ class DatabaseService {
             .toList());
   }
 
-  Future<void> addPatients(
-      String opNumber, String name, String age, String phoneNumber) {
+  Future<void> addPatients(String opNumber, String name, String age,
+      String phoneNumber, String bedNo) {
     Map<String, String> newPatient = {
       "Name": name,
       "age": age,
       "opNo": opNumber,
-      "bedNo": "21",
+      "bedNo": bedNo,
     };
     CollectionReference patRef =
         FirebaseFirestore.instance.collection('Patient');

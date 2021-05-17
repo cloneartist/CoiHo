@@ -108,7 +108,7 @@ class _AddPatientState extends State<AddPatient> {
       print('$name,$age,$phoneNumber,$opNumber');
       DatabaseService _db = new DatabaseService();
       _db.addPatients(opNumber = opNumber, age = age, name = name,
-          phoneNumber = phoneNumber);
+          phoneNumber = phoneNumber, bedNo = "21");
       return true;
     } else {
       print("Form invalid");
