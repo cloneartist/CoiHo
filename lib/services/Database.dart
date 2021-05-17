@@ -35,9 +35,9 @@ class DatabaseService {
     String sheetUrl =
         'https://script.google.com/macros/s/AKfycbyEzCqm6rZT1WhZAIiuZyyHy1xFbcH5hEqGnCSxU9M/dev?type=newPatient&opNumber=$opNumber&name=$name&age=$age&bedNo=$bedNo&phoneNumber=$phoneNumber';
     try {
-      launch(sheetUrl);
+      http.get(Uri.parse(sheetUrl));
     } catch (e) {
-      print(e);
+      print('add patient url launcher exception: ' + e);
     }
     CollectionReference patRef =
         FirebaseFirestore.instance.collection('Patient');
