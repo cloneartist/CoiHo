@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coho/Models/Patient.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 // user
 class DatabaseService {
@@ -22,14 +24,21 @@ class DatabaseService {
       {String opNumber,
       String name,
       String age,
-      String bed,
-      String phoneNumber}) {
+      String phoneNumber,
+      String bedNo}) {
     Map<String, String> newPatient = {
       "Name": name,
       "age": age,
       "opNo": opNumber,
-      "bedNo": bed,
+      "bedNo": bedNo,
     };
+    String sheetUrl =
+        'https://script.google.com/macros/s/AKfycbyEzCqm6rZT1WhZAIiuZyyHy1xFbcH5hEqGnCSxU9M/dev?type=newPatient&opNumber=$opNumber&name=$name&age=$age&bedNo=$bedNo&phoneNumber=$phoneNumber';
+    try {
+      launch(sheetUrl);
+    } catch (e) {
+      print(e);
+    }
     CollectionReference patRef =
         FirebaseFirestore.instance.collection('Patient');
     return patRef
