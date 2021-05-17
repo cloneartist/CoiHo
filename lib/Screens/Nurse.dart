@@ -44,7 +44,6 @@ class NurseState extends State<Nurse> {
             children: <Widget>[
               //.
               //Bed No.
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -62,8 +61,6 @@ class NurseState extends State<Nurse> {
               SizedBox(
                 height: 20,
               ),
-
-              //Name
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -259,7 +256,7 @@ class NurseState extends State<Nurse> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      minimumSize: Size(10, 50),
+                      minimumSize: Size(100, 50),
                       padding: EdgeInsets.fromLTRB(60, 20, 60, 20)),
                   onPressed: validateAndSave,
                   child: Text('Submit'),
@@ -277,10 +274,7 @@ dynamic textInputDecoration = InputDecoration(
   labelStyle: TextStyle(
     color: Colors.blue,
   ),
-  suffixIcon: IconButton(
-    icon: Icon(Icons.check),
-    onPressed: () {},
-  ),
+ 
   fillColor: Colors.white,
   focusedBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(20),
