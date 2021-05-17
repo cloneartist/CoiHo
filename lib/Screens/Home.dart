@@ -36,12 +36,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-
                       //Route to PatientDetails.dart
 
                       Navigator.push(context, MaterialPageRoute(builder: (_) => AddPatient()));
-
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 55, 50),
@@ -86,7 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showPopUp(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 55, 50),
                       child: Align(
@@ -131,9 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-
                       Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPatient()));
-
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 55, 50),
@@ -179,4 +176,72 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  void showPopUp(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: Text("Enter Bed Number"),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: TextFormField(
+
+                        keyboardType: TextInputType.number,
+                        decoration: textInputDecoration,
+
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+
+
+                          //search for bed number in db
+
+
+                        },
+                        child: Text("Ok",style: TextStyle(color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue,
+                          onPrimary: Colors.lightBlueAccent,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  dynamic textInputDecoration = InputDecoration(
+    labelStyle: TextStyle(
+      color: Colors.blue,
+    ),
+    fillColor: Colors.white,
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(width: 1, color: Colors.blue),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(width: 1, color: Colors.black),
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(),
+    ),
+  );
 }
