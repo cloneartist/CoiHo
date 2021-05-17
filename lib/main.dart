@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Screens/login_screen.dart';
+
 // import 'package:firebase_auth/firebase_auth.dart';
 String auth;
 // Future<void> main() async {
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             '/': (context) => MyHomePage(),
+            '/login': (context) => Login(),
             // '/ProfilePerson': (context) => ProfilePerson(),
           },
           // theme: ThemeData(
