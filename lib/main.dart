@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 //import 'package:provider/provider.dart';
 
+import 'Screens/Nurse.dart';
 import 'Screens/login_screen.dart';
 
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MyHomePage(),
         '/login': (context) => Login(),
+        '/nurse': (context) => Nurse(),
         // '/ProfilePerson': (context) => ProfilePerson(),
       },
       // theme: ThemeData(
