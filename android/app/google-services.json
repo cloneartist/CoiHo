@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "885021664718",
+    "project_id": "coho-1f0a9",
+    "storage_bucket": "coho-1f0a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885021664718:android:4db87cf12fd4ea236ef79f",
+        "android_client_info": {
+          "package_name": "com.example.coho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885021664718-quh32obe6892dht38cuvcjrb76nmdq3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOJAdovxbJjAWhoeig4xPpmd_AGbjAQpQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885021664718-quh32obe6892dht38cuvcjrb76nmdq3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
