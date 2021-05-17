@@ -2,7 +2,7 @@ import 'package:coho/Screens/Home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 
 import 'Screens/login_screen.dart';
 
@@ -31,20 +31,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // DatabaseService _db = new DatabaseService();
 
-    return MultiProvider(
-        providers: [],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          initialRoute: '/',
-          routes: {
-            '/': (context) => MyHomePage(),
-            '/login': (context) => Login(),
-            // '/ProfilePerson': (context) => ProfilePerson(),
-          },
-          // theme: ThemeData(
-          //   primarySwatch: Colors.blue,
-          // ),
-          // home: MyHomePage(title: 'Flutter Demo Home Page'),
-        ));
+    return MaterialApp(
+      title: 'Flutter Demo',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(),
+        '/login': (context) => Login(),
+        // '/ProfilePerson': (context) => ProfilePerson(),
+      },
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      // ),
+      // home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
   }
 }
