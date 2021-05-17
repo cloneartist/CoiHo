@@ -104,11 +104,17 @@ class _AddPatientState extends State<AddPatient> {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
+      // String bed;
 
       print('$name,$age,$phoneNumber,$opNumber');
       DatabaseService _db = new DatabaseService();
-      _db.addPatients(opNumber = opNumber, age = age, name = name,
-          phoneNumber = phoneNumber, bedNo = "21");
+      _db.addPatients(
+        opNumber: opNumber,
+        age: age,
+        bed: "21",
+        name: name,
+        phoneNumber: phoneNumber,
+      });
       return true;
     } else {
       print("Form invalid");
