@@ -1,7 +1,10 @@
+import 'package:coho/Models/Patient.dart';
 import 'package:coho/Screens/Home.dart';
+import 'package:coho/services/Database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //import 'package:provider/provider.dart';
 
 import 'Screens/Nurse.dart';
@@ -30,22 +33,29 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // DatabaseService _db = new DatabaseService();
+    DatabaseService _db = new DatabaseService();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      initialRoute: '/login',
-      routes: {
-        '/': (context) => MyHomePage(),
-        '/login': (context) => Login(),
-        '/nurse': (context) => Nurse(),
-        // '/ProfilePerson': (context) => ProfilePerson(),
-      },
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      // ),
-      // home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Patient>>(
+            create: (BuildContext context) => _db.geDateofMatche(),
+            initialData: []),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        initialRoute: '/login',
+        routes: {
+          '/': (context) => MyHomePage(),
+          '/login': (context) => Login(),
+          '/nurse': (context) => Nurse(),
+          // '/ProfilePerson': (context) => ProfilePerson(),
+        },
+        // theme: ThemeData(
+        //   primarySwatch: Colors.blue,
+        // ),
+        // home: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
