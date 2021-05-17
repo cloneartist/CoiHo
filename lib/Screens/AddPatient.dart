@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:coho/services/Database.dart';
 
 class AddPatient extends StatefulWidget {
   @override
@@ -28,8 +29,10 @@ class _AddPatientState extends State<AddPatient> {
                     height: 20,
                   ),
                   TextFormField(
-                    decoration: textInputDecoration.copyWith(labelText: 'Patient Name(Mandatory)'),
-                    validator: (value) => value.isEmpty ? "  Please enter name" : null,
+                    decoration: textInputDecoration.copyWith(
+                        labelText: 'Patient Name(Mandatory)'),
+                    validator: (value) =>
+                        value.isEmpty ? "  Please enter name" : null,
                     onSaved: (value) => name = value,
                   ),
                   SizedBox(
@@ -37,8 +40,10 @@ class _AddPatientState extends State<AddPatient> {
                   ),
                   TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: textInputDecoration.copyWith(labelText: 'Age(Mandatory)'),
-                    validator: (value) => value.isEmpty ? "  Please enter age" : null,
+                    decoration: textInputDecoration.copyWith(
+                        labelText: 'Age(Mandatory)'),
+                    validator: (value) =>
+                        value.isEmpty ? "  Please enter age" : null,
                     onSaved: (value) => age = value,
                   ),
                   SizedBox(
@@ -46,7 +51,8 @@ class _AddPatientState extends State<AddPatient> {
                   ),
                   TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: textInputDecoration.copyWith(labelText: 'OP Number(Optional)'),
+                    decoration: textInputDecoration.copyWith(
+                        labelText: 'OP Number(Optional)'),
                     // validator: (value) => value.isEmpty ? "  Please enter OP number" : null,
                     onSaved: (value) => opNumber = value,
                   ),
@@ -55,7 +61,8 @@ class _AddPatientState extends State<AddPatient> {
                   ),
                   TextFormField(
                     keyboardType: TextInputType.phone,
-                    decoration: textInputDecoration.copyWith(labelText: 'Phone Number(Optional)'),
+                    decoration: textInputDecoration.copyWith(
+                        labelText: 'Phone Number(Optional)'),
                     // validator: (value) => value.isEmpty ? "  Please enter Phone Number" : null,
                     onSaved: (value) => phoneNumber = value,
                   ),
@@ -63,22 +70,23 @@ class _AddPatientState extends State<AddPatient> {
                     height: 20,
                   ),
                   Container(
-
                     width: MediaQuery.of(context).size.width,
                     height: 60,
                     child: ElevatedButton(
                       onPressed: () {
-
                         validateAndSave();
-
                       },
                       child: Text(
                         "Submit",
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            .copyWith(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
                         onPrimary: Colors.lightBlueAccent,
                       ),
                     ),
@@ -98,13 +106,15 @@ class _AddPatientState extends State<AddPatient> {
       form.save();
 
       print('$name,$age,$phoneNumber,$opNumber');
+      DatabaseService _db = new DatabaseService();
+      _db.addPatients(opNumber = opNumber, age = age, name = name,
+          phoneNumber = phoneNumber);
       return true;
     } else {
       print("Form invalid");
       return false;
     }
   }
-
 
   dynamic textInputDecoration = InputDecoration(
     labelStyle: TextStyle(

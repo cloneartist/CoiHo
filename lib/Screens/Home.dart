@@ -38,7 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       //Route to PatientDetails.dart
 
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => AddPatient()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => AddPatient()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 55, 50),
@@ -51,7 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Text(
                               "Add Patient",
-                              style: Theme.of(context).textTheme.headline4.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(
                                     color: Colors.blue,
                                   ),
                             ),
@@ -72,8 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: ElevatedButton.styleFrom(
                         primary: Colors.white,
                         elevation: 5,
-                        side: BorderSide(color: Colors.blue, width: 2, style: BorderStyle.solid),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        side: BorderSide(
+                            color: Colors.blue,
+                            width: 2,
+                            style: BorderStyle.solid),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
                         onPrimary: Colors.lightBlueAccent),
                   ),
                 ),
@@ -97,7 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Text(
                               "Check Vitals",
-                              style: Theme.of(context).textTheme.headline4.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(
                                     color: Colors.blue,
                                   ),
                             ),
@@ -118,8 +129,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: ElevatedButton.styleFrom(
                         primary: Colors.white,
                         elevation: 5,
-                        side: BorderSide(color: Colors.blue, width: 2, style: BorderStyle.solid),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        side: BorderSide(
+                            color: Colors.blue,
+                            width: 2,
+                            style: BorderStyle.solid),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
                         onPrimary: Colors.lightBlueAccent),
                   ),
                 ),
@@ -130,7 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPatient()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => ViewPatient()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 55, 50),
@@ -143,7 +159,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Text(
                               "View Patient",
-                              style: Theme.of(context).textTheme.headline4.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(
                                     color: Colors.blue,
                                   ),
                             ),
@@ -164,8 +183,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: ElevatedButton.styleFrom(
                         primary: Colors.white,
                         elevation: 5,
-                        side: BorderSide(color: Colors.blue, width: 2, style: BorderStyle.solid),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        side: BorderSide(
+                            color: Colors.blue,
+                            width: 2,
+                            style: BorderStyle.solid),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
                         onPrimary: Colors.lightBlueAccent),
                   ),
                 ),
@@ -182,7 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
         context: context,
         builder: (_) {
           return AlertDialog(
-            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             title: Text("Enter Bed Number"),
             actions: [
               Padding(
@@ -192,30 +216,29 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextFormField(
-
                         keyboardType: TextInputType.number,
                         decoration: textInputDecoration,
-
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-
-
                           //search for bed number in db
-
-
                         },
-                        child: Text("Ok",style: TextStyle(color: Colors.white),),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          onPrimary: Colors.lightBlueAccent,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(color: Colors.white),
                         ),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blue,
+                            onPrimary: Colors.lightBlueAccent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
                       ),
                     )
                   ],
