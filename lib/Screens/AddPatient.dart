@@ -114,7 +114,7 @@ class _AddPatientState extends State<AddPatient> {
         bed: "21",
         name: name,
         phoneNumber: phoneNumber,
-      });
+      );
       return true;
     } else {
       print("Form invalid");
