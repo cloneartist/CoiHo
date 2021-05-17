@@ -34,7 +34,7 @@ class DatabaseService {
         FirebaseFirestore.instance.collection('Patient');
     return patRef
         .doc(opNumber)
-        .set({opNumber: newPatient})
+        .set(newPatient)
         .then((value) => {
               print("Pt collection updated"),
             })
