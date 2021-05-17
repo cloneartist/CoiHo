@@ -33,8 +33,9 @@ class MyApp extends StatelessWidget {
     // DatabaseService _db = new DatabaseService();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/': (context) => MyHomePage(),
         '/login': (context) => Login(),
