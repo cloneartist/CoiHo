@@ -32,7 +32,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DatabaseService _db = new DatabaseService();
+    //DatabaseService _db = new DatabaseService();
 
     return MaterialApp(
       title: 'Flutter Demo',
