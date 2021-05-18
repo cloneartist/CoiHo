@@ -100,14 +100,14 @@ class _AddPatientState extends State<AddPatient> {
     );
   }
 
-  bool validateAndSave() {
+  validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
 
       print('$name,$age,$phoneNumber,$opNumber');
       DatabaseService _db = new DatabaseService();
-      _db.addPatients(
+      var a = _db.addPatients(
           opNumber: opNumber,
           age: age,
           name: name,

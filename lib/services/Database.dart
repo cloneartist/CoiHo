@@ -15,9 +15,43 @@ class DatabaseService {
         .collection("Patient")
         .orderBy("bedNo", descending: true)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((documents) => Patient.fromJson(documents.data()))
-            .toList());
+        .map((snapshot) => snapshot.docs.map((documents) {
+              print("\n\n\n\n\n\ndata ${documents.data()["age"]}");
+
+              return Patient.fromJson(documents.data());
+            }).toList());
+  }
+
+  Future<void> addNeTrack(List<Track> track, Track newVal) {
+    if (track.isEmpty) {
+      track = [];
+    }
+    track.add(newVal);
+    print("\n\n\n\n\n\n\n\n\nNew val${newVal.toString()}");
+    // var a = json.encode(track.toJson());
+    var a = [];
+    track.forEach((element) {
+      var temp = {
+        "time": element.time,
+        "spO2": element.spO2,
+        "pressure": element.pressure,
+        "temp": element.temp,
+        "pulse": element.pulse,
+        "respirRate": element.respirRate
+      };
+
+      a.add(temp);
+    });
+    print("\n\n\n\n\n\n ${a.toString()}");
+
+    CollectionReference patRef =
+        FirebaseFirestore.instance.collection('Patient');
+
+    print("\n\n\n\n\n\all the data here \n ${track.toString()}");
+    return patRef.doc("Patient1").update({"track": a}).then((value) {
+      print("\n\n\nupdated yaaa");
+    }).catchError(
+        (onError) => print("\n\n\n error thrown ${onError.toString()}"));
   }
 
   Future<void> addPatients(
@@ -32,13 +66,14 @@ class DatabaseService {
       "opNo": opNumber,
       "bedNo": bedNo,
     };
-    String sheetUrl =
-        'https://script.google.com/macros/s/AKfycbyEzCqm6rZT1WhZAIiuZyyHy1xFbcH5hEqGnCSxU9M/dev?type=newPatient&opNumber=$opNumber&name=$name&age=$age&bedNo=$bedNo&phoneNumber=$phoneNumber';
-    try {
-      http.get(Uri.parse(sheetUrl));
-    } catch (e) {
-      print('add patient url launcher exception: ' + e);
-    }
+    // String sheetUrl =
+    //     'https://script.google.com/macros/s/AKfycbyEzCqm6rZT1WhZAIiuZyyHy1xFbcH5hEqGnCSxU9M/dev?type=newPatient&opNumber=$opNumber&name=$name&age=$age&bedNo=$bedNo&phoneNumber=$phoneNumber';
+    // try {
+    //   launch(sheetUrl);
+    // } catch (e) {
+
+    //   print(e);
+    // }
     CollectionReference patRef =
         FirebaseFirestore.instance.collection('Patient');
     return patRef
