@@ -110,8 +110,12 @@ class _ViewRecordState extends State<ViewRecord> {
                       itemCount: vehicles.length,
                       itemBuilder: (context, i) {
                         return new ExpansionTile(
-                          leading: Icon(
-                            Icons.edit,
+                          leading: IconButton(                            
+                            icon: Icon(Icons.edit),
+                            onPressed: (){
+                              //TODO: Goto edit (Permission to edit for doc only)
+                              print("Edit button clicked!");
+                            },
                           ),
                           backgroundColor: Colors.white,
                           subtitle: Text(
