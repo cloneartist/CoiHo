@@ -1,4 +1,7 @@
+import 'package:coho/Models/Patient.dart';
+import 'package:coho/Models/Selected.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Nurse extends StatefulWidget {
   @override
@@ -14,8 +17,12 @@ class NurseState extends State<Nurse> {
   final TextEditingController tecTEMP = TextEditingController();
   final TextEditingController tecRESP = TextEditingController();
   final TextEditingController tecPULSE = TextEditingController();
+  final TextEditingController namCtrl = TextEditingController();
+  final TextEditingController ageCtrl = TextEditingController();
 
   String _uid, _name, _age, _spo2, _bp, _temp, _resprate, _pulse;
+  String asd = " Not setState";
+  // Patient patient = Patient();
 
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -23,6 +30,7 @@ class NurseState extends State<Nurse> {
       form.save();
 
       print('$_uid,$_name,$_age,$_spo2,$_bp,$_temp,$_resprate,$_pulse');
+
       return true;
     } else {
       print("Form invalid");
@@ -32,6 +40,13 @@ class NurseState extends State<Nurse> {
 
   @override
   Widget build(BuildContext context) {
+    var patients = Provider.of<List<Patient>>(context).toList();
+    Selected selected = Provider.of<Selected>(context);
+    // String patient = selected.getSelected;
+
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Info Page"),
@@ -54,7 +69,31 @@ class NurseState extends State<Nurse> {
                         textInputDecoration.copyWith(labelText: 'Bed No'),
                     validator: (value) =>
                         value.isEmpty ? "  Please Enter Bed No" : null,
-                    onSaved: (value) => _uid = value,
+                    onChanged: (value) {
+                      _uid = value;
+                      patients.forEach((element) {
+                        print("\n\n\n\n\n\nelement name ${element.name}");
+                        if (element.bedNo == _uid.toString()) {
+                          asd = "done ";
+                          namCtrl.text = element.name;
+                          ageCtrl.text = element.age;
+                          selected.changeSelect(element);
+                        }
+                      });
+                    },
+                    onSaved: (value) {
+                      _uid = value;
+                      patients.forEach((element) {
+                        print("\n\n\n\n\n\nelement name ${element.name}");
+                        if (element.bedNo == _uid.toString()) {
+                          selected.changeSelect(element);
+                          print("\n\n\n\n saved ${element.name}");
+                          setState(() {
+                            asd = "done ";
+                          });
+                        }
+                      });
+                    },
                   ),
                 ),
               ),
@@ -68,10 +107,17 @@ class NurseState extends State<Nurse> {
                   height: 70,
                   width: 350,
                   child: TextFormField(
+                    controller: namCtrl,
+                    // onTap: ,
+                    // initialValue: asd,
+
+                    //  patient == null ? "" : patient.name,
                     decoration: textInputDecoration.copyWith(labelText: 'Name'),
                     validator: (value) =>
                         value.isEmpty ? "  Please Enter Name" : null,
-                    onSaved: (value) => _uid = value,
+                    onSaved: (value) {
+                      _uid = value;
+                    },
                   ),
                 ),
               ),
@@ -88,6 +134,7 @@ class NurseState extends State<Nurse> {
                   height: 70,
                   width: 350,
                   child: TextFormField(
+                    controller: ageCtrl,
                     decoration: textInputDecoration.copyWith(labelText: 'Age'),
                     validator: (value) =>
                         value.isEmpty ? "  Please Enter Age" : null,
@@ -105,10 +152,10 @@ class NurseState extends State<Nurse> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       height: 70,
-                      width: 280,
+                      width: width * .6,
                       child: TextFormField(
                         controller: tecSPO2,
                         decoration:
@@ -119,11 +166,17 @@ class NurseState extends State<Nurse> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        tecSPO2.text = "NORMAL";
-                      },
-                      child: Text("Normal"))
+                  Container(
+                    width: width * .3,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          tecSPO2.text = "NORMAL";
+                        },
+                        child: Text(
+                          "Normal",
+                          style: TextStyle(fontSize: 10),
+                        )),
+                  )
                 ],
               ),
               SizedBox(
@@ -139,7 +192,7 @@ class NurseState extends State<Nurse> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: 70,
-                      width: 280,
+                      width: width * .6,
                       child: TextFormField(
                         controller: tecBP,
                         decoration: textInputDecoration.copyWith(
@@ -151,11 +204,14 @@ class NurseState extends State<Nurse> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        tecBP.text = "NORMAL";
-                      },
-                      child: Text("Normal"))
+                  Container(
+                    width: width * .3,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          tecBP.text = "NORMAL";
+                        },
+                        child: Text("Normal")),
+                  )
                 ],
               ),
               SizedBox(
@@ -171,7 +227,7 @@ class NurseState extends State<Nurse> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: 70,
-                      width: 280,
+                      width: width * .6,
                       child: TextFormField(
                         controller: tecTEMP,
                         decoration: textInputDecoration.copyWith(
@@ -182,11 +238,14 @@ class NurseState extends State<Nurse> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        tecTEMP.text = "NORMAL";
-                      },
-                      child: Text("Normal"))
+                  Container(
+                    width: width * .3,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          tecTEMP.text = "NORMAL";
+                        },
+                        child: Text("Normal")),
+                  )
                 ],
               ),
               SizedBox(
@@ -202,7 +261,7 @@ class NurseState extends State<Nurse> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: 70,
-                      width: 280,
+                      width: width * .6,
                       child: TextFormField(
                         controller: tecRESP,
                         decoration: textInputDecoration.copyWith(
@@ -214,11 +273,14 @@ class NurseState extends State<Nurse> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        tecRESP.text = "NORMAL";
-                      },
-                      child: Text("Normal"))
+                  Container(
+                    width: width * .3,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          tecRESP.text = "NORMAL";
+                        },
+                        child: Text("Normal")),
+                  )
                 ],
               ),
               SizedBox(
@@ -234,7 +296,7 @@ class NurseState extends State<Nurse> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: 70,
-                      width: 280,
+                      width: width * .6,
                       child: TextFormField(
                         controller: tecPULSE,
                         decoration:
@@ -245,11 +307,14 @@ class NurseState extends State<Nurse> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        tecPULSE.text = "NORMAL";
-                      },
-                      child: Text("Normal"))
+                  Container(
+                    width: width * .3,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          tecPULSE.text = "NORMAL";
+                        },
+                        child: Text("Normal")),
+                  )
                 ],
               ),
               Padding(
@@ -258,7 +323,10 @@ class NurseState extends State<Nurse> {
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 50),
                       padding: EdgeInsets.fromLTRB(60, 20, 60, 20)),
-                  onPressed: validateAndSave,
+                  onPressed: () {
+                    print("\n\n\n\n\nSubmitted here ${selected.patient.name}");
+                    validateAndSave();
+                  },
                   child: Text('Submit'),
                 ),
               ),
@@ -274,7 +342,6 @@ dynamic textInputDecoration = InputDecoration(
   labelStyle: TextStyle(
     color: Colors.blue,
   ),
- 
   fillColor: Colors.white,
   focusedBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(20),
