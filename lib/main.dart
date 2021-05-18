@@ -3,12 +3,13 @@ import 'package:coho/Models/Selected.dart';
 import 'package:coho/Screens/AddPatient.dart';
 import 'package:coho/Screens/Home.dart';
 import 'package:coho/Screens/ViewPatient.dart';
+import 'package:coho/Screens/ViewRecord.dart';
 import 'package:coho/services/Database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:device_preview/device_preview.dart';
+//import 'package:device_preview/device_preview.dart';
 import 'Screens/Nurse.dart';
 import 'Screens/login_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -31,10 +32,11 @@ Future<void> main() async {
 
   // print("\n\n\nEntered\n\n\n\n\n");
   runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
+    // DevicePreview(
+    //   enabled: false,
+    //   builder: (context) => MyApp(), // Wrap your app
+    // ),
+    MyApp()
   );
 }
 
@@ -58,13 +60,14 @@ class MyApp extends StatelessWidget {
             SizerUtil().init(contraints, orientation);
             return MaterialApp(
               title: 'Flutter Demo',
-              initialRoute: '/nurse',
+              initialRoute: '/viewrecord',
               routes: {
                 '/': (context) => MyHomePage(),
                 '/login': (context) => Login(),
                 '/nurse': (context) => Nurse(),
                 '/viewpatient': (context) => ViewPatient(),
                 '/addpatient': (context) => AddPatient(),
+                '/viewrecord': (context) =>ViewRecord(),
                 // '/ProfilePerson': (context) => ProfilePerson(),
               },
               theme: ThemeData(
