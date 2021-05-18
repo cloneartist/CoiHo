@@ -22,6 +22,16 @@ class DatabaseService {
             }).toList());
   }
 
+  Future<void> addNeTrack(List<Track> track, Track newVal) {
+    track.add(newVal);
+    CollectionReference patRef =
+        FirebaseFirestore.instance.collection('Patient');
+    return patRef.doc("asd").update({"track": track}).then((value) {
+      print("\n\n\nnupdated yaaa");
+    }).catchError(
+        (onError) => print("\n\n\n error thrown ${onError.toString()}"));
+  }
+
   Future<void> addPatients(
       {String opNumber,
       String name,

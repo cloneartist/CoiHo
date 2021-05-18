@@ -1,5 +1,6 @@
 import 'package:coho/Models/Patient.dart';
 import 'package:coho/Models/Selected.dart';
+import 'package:coho/services/Database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,12 +25,14 @@ class NurseState extends State<Nurse> {
   String asd = " Not setState";
   // Patient patient = Patient();
 
-  bool validateAndSave() {
+  bool validateAndSave(List<Track> track) {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
 // $_uid,$_name,$_age,
       print('$_spo2,$_bp,$_temp,$_resprate,$_pulse');
+      DatabaseService _db = new DatabaseService();
+      _db.addNeTrack(track);
 
       return true;
     } else {
@@ -386,7 +389,10 @@ class NurseState extends State<Nurse> {
                             borderRadius: BorderRadius.circular(18)),
                         minimumSize: Size(100, 50),
                         padding: EdgeInsets.fromLTRB(60, 20, 60, 20)),
-                    onPressed: validateAndSave,
+                    onPressed: () {
+                      // Track trac=
+                      // validateAndSave(selected.patient.track,)
+                    },
                     child: Text('Submit'),
                   ),
                 ),
