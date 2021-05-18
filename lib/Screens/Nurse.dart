@@ -392,10 +392,16 @@ class NurseState extends State<Nurse> {
                         padding: EdgeInsets.fromLTRB(60, 20, 60, 20)),
                     onPressed: () {
                       Track trac = Track(
-                          pressure: _bp,
-                          spO2: _spo2,
-                          temp: _temp,
-                          pulse: _pulse);
+                          pressure: tecBP.text,
+                          spO2: tecSPO2.text,
+                          temp: tecTEMP.text,
+                          pulse: tecPULSE.text);
+
+                      if (selected.patient.track.isEmpty) {
+                        print(
+                            "\n\n\n\n\n\n\n\n\n EEmpty ${selected.patient.track}");
+                        selected.patient.track = [];
+                      }
                       validateAndSave(selected.patient.track, trac);
                       // validateAndSave(selected.patient.track,)
                     },

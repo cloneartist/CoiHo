@@ -23,7 +23,11 @@ class DatabaseService {
   }
 
   Future<void> addNeTrack(List<Track> track, Track newVal) {
+    if (track.isEmpty) {
+      track = [];
+    }
     track.add(newVal);
+    print("\n\n\n\n\n\n\n\n\nNew val${newVal.toString()}");
     // var a = json.encode(track.toJson());
     var a = [];
     track.forEach((element) {
@@ -42,8 +46,10 @@ class DatabaseService {
 
     CollectionReference patRef =
         FirebaseFirestore.instance.collection('Patient');
+
+    print("\n\n\n\n\n\all the data here \n ${track.toString()}");
     return patRef.doc("Patient1").update({"track": a}).then((value) {
-      print("\n\n\nnupdated yaaa");
+      print("\n\n\nupdated yaaa");
     }).catchError(
         (onError) => print("\n\n\n error thrown ${onError.toString()}"));
   }
