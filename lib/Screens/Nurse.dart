@@ -25,14 +25,15 @@ class NurseState extends State<Nurse> {
   String asd = " Not setState";
   // Patient patient = Patient();
 
-  bool validateAndSave(List<Track> track) {
+  bool validateAndSave(List<Track> track, Track newTrack) {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
 // $_uid,$_name,$_age,
       print('$_spo2,$_bp,$_temp,$_resprate,$_pulse');
       DatabaseService _db = new DatabaseService();
-      _db.addNeTrack(track);
+
+      _db.addNeTrack(track, newTrack);
 
       return true;
     } else {
@@ -390,7 +391,12 @@ class NurseState extends State<Nurse> {
                         minimumSize: Size(100, 50),
                         padding: EdgeInsets.fromLTRB(60, 20, 60, 20)),
                     onPressed: () {
-                      // Track trac=
+                      Track trac = Track(
+                          pressure: _bp,
+                          spO2: _spo2,
+                          temp: _temp,
+                          pulse: _pulse);
+                      validateAndSave(selected.patient.track, trac);
                       // validateAndSave(selected.patient.track,)
                     },
                     child: Text('Submit'),
