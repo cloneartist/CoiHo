@@ -33,6 +33,7 @@ class DatabaseService {
       "opNo": opNumber,
       "bedNo": bedNo,
     };
+<<<<<<< HEAD
     // String sheetUrl =
     //     'https://script.google.com/macros/s/AKfycbyEzCqm6rZT1WhZAIiuZyyHy1xFbcH5hEqGnCSxU9M/dev?type=newPatient&opNumber=$opNumber&name=$name&age=$age&bedNo=$bedNo&phoneNumber=$phoneNumber';
     // try {
@@ -40,6 +41,15 @@ class DatabaseService {
     // } catch (e) {
     //   print(e);
     // }
+=======
+    String sheetUrl =
+        'https://script.google.com/macros/s/AKfycbyEzCqm6rZT1WhZAIiuZyyHy1xFbcH5hEqGnCSxU9M/dev?type=newPatient&opNumber=$opNumber&name=$name&age=$age&bedNo=$bedNo&phoneNumber=$phoneNumber';
+    try {
+      http.get(Uri.parse(sheetUrl));
+    } catch (e) {
+      print('add patient url launcher exception: ' + e);
+    }
+>>>>>>> 86ec93839152b4ffcf61a57d244cc33b9109c2ef
     CollectionReference patRef =
         FirebaseFirestore.instance.collection('Patient');
     return patRef
