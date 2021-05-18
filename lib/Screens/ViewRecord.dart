@@ -1,5 +1,4 @@
 import 'package:coho/Models/Patient.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 class ViewRecord extends StatefulWidget {
