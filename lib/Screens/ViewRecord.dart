@@ -102,7 +102,7 @@ class _ViewRecordState extends State<ViewRecord> {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.circular(20)),
-                  height: MediaQuery.of(context).size.height * 0.75,
+                  height: MediaQuery.of(context).size.height*0.6,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -169,9 +169,10 @@ class _ViewRecordState extends State<ViewRecord> {
                                           style: TxtTheme,
                                         ),
                                         Text(
-                                          'Respiratory rate: ' +
+                                          'Resp. rate: ' +
                                               vehicles[i].respirRate,
                                           style: TxtTheme,
+                                          softWrap:true ,
                                         ),
                                         Text(
                                           'Time: ' + vehicles[i].time,
