@@ -9,6 +9,7 @@ class AddPatient extends StatefulWidget {
 class _AddPatientState extends State<AddPatient> {
   final _formKey = GlobalKey<FormState>();
   String name, age, opNumber, phoneNumber;
+  String bedNo;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +79,16 @@ class _AddPatientState extends State<AddPatient> {
                   SizedBox(
                     height: 20,
                   ),
+                  TextFormField(
+                    decoration: textInputDecoration.copyWith(
+                        labelText: 'Bed number(Mandatory)'),
+                    validator: (value) =>
+                        value.isEmpty ? "  Please bed number" : null,
+                    onSaved: (value) => bedNo = value,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: 60,
@@ -123,7 +134,7 @@ class _AddPatientState extends State<AddPatient> {
           age: age,
           name: name,
           phoneNumber: phoneNumber,
-          bedNo: '21');
+          bedNo: bedNo);
       return true;
     } else {
       print("Form invalid");

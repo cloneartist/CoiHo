@@ -97,6 +97,20 @@ class NurseState extends State<Nurse> {
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    List<String> month = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
 
     final updated = SnackBar(
         content: Text('Succesfully updated'),
@@ -465,8 +479,12 @@ class NurseState extends State<Nurse> {
                           spO2: tecSPO2.text,
                           temp: tecTEMP.text,
                           pulse: tecPULSE.text,
-                          time: (DateTime.now().millisecondsSinceEpoch)
-                              .toString());
+                          time: (DateTime.now().day.toString() +
+                              " " +
+                              month[DateTime.now().month] +
+                              ", " +
+                              DateTime.now().hour.toString() +
+                              " Hrs"));
 
                       if (widget.edit == "Yes") {
                         print("\n\n\n\ inside edit on press");
