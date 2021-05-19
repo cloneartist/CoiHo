@@ -448,7 +448,7 @@ class NurseState extends State<Nurse> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 15),
                       child: SizedBox(
-                        width: 90,
+                width: width * .3,
                         height: 60,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
