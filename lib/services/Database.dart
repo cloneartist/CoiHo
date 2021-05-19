@@ -85,7 +85,7 @@ class DatabaseService {
       {String opNumber,
       String name,
       String age,
-      String phoneNumber,
+      String phone,
       String bedNo}) {
     var track = [{}];
     // track.add({"presure": null});
@@ -93,6 +93,7 @@ class DatabaseService {
       "Name": name,
       "age": age,
       "opNo": opNumber,
+      "phone":phone??"Nil",
       "bedNo": bedNo,
       "critical": "No",
       "track": track

@@ -87,7 +87,7 @@ class _ViewRecordState extends State<ViewRecord> {
                           Text(selected.patient.name, style: TxtTheme),
                           Text(selected.patient.age, style: TxtTheme),
                           Text(selected.patient.opNo, style: TxtTheme),
-                          Text(selected.patient.bedNo, style: TxtTheme),
+                          Text(selected.patient.phone??"Nil", style: TxtTheme),
                           Text(selected.patient.bedNo, style: TxtTheme),
                           Text(selected.patient.critical,
                               style: TxtTheme), // if possible else delete

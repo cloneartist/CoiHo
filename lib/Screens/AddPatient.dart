@@ -8,7 +8,7 @@ class AddPatient extends StatefulWidget {
 
 class _AddPatientState extends State<AddPatient> {
   final _formKey = GlobalKey<FormState>();
-  String name, age, opNumber, phoneNumber;
+  String name, age, opNumber, phone;
   String bedNo;
 
   @override
@@ -74,7 +74,7 @@ class _AddPatientState extends State<AddPatient> {
                     decoration: textInputDecoration.copyWith(
                         labelText: 'Phone Number(Optional)'),
                     // validator: (value) => value.isEmpty ? "  Please enter Phone Number" : null,
-                    onSaved: (value) => phoneNumber = value,
+                    onSaved: (value) => phone = value,
                   ),
                   SizedBox(
                     height: 20,
@@ -127,13 +127,13 @@ class _AddPatientState extends State<AddPatient> {
     if (form.validate()) {
       form.save();
 
-      print('$name,$age,$phoneNumber,$opNumber');
+      print('$name,$age,$phone,$opNumber');
       DatabaseService _db = new DatabaseService();
       var a = _db.addPatients(
           opNumber: opNumber,
           age: age,
           name: name,
-          phoneNumber: phoneNumber,
+          phone: phone.isEmpty?"Nil":phone,
           bedNo: bedNo);
       return true;
     } else {

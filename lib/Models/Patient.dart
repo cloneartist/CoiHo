@@ -10,9 +10,10 @@ import 'dart:convert';
 
 class Patient {
   Patient(
-      {this.name, this.age, this.bedNo, this.opNo, this.track, this.critical});
+      {this.name, this.age, this.bedNo,this.opNo,this.phone,this.track, this.critical});
 
   String name;
+  String phone;
   String age;
   String bedNo;
   String opNo;
@@ -24,6 +25,7 @@ class Patient {
         age: json["age"],
         bedNo: json["bedNo"],
         opNo: json["opNo"],
+        phone: json["phone"],
         critical: json["critical"],
         track: List<Track>.from(json["track"].map((x) => Track.fromJson(x))),
       );
@@ -32,6 +34,7 @@ class Patient {
         "Name": name,
         "age": age,
         "bedNo": bedNo,
+        "phone":phone,
         "opNo": opNo,
         "track": List<dynamic>.from(track.map((x) => x.toJson())),
       };
