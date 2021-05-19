@@ -12,24 +12,24 @@ class ViewRecord extends StatefulWidget {
 class _ViewRecordState extends State<ViewRecord> {
   // Delete this
 
-  List<Track> vehicles = [
-    new Track(
-      pressure: "s",
-      pulse: "s",
-      respirRate: "927393",
-      spO2: "w",
-      temp: "sd",
-      time: "sd",
-    ),
-    new Track(
-      pressure: "sert",
-      pulse: "sdt",
-      respirRate: "sd",
-      spO2: "sgjf",
-      temp: "sfg",
-      time: "sghj",
-    ),
-  ];
+  // List<Track> vehicles = [
+  //   new Track(
+  //     pressure: "s",
+  //     pulse: "s",
+  //     respirRate: "927393",
+  //     spO2: "w",
+  //     temp: "sd",
+  //     time: "sd",
+  //   ),
+  //   new Track(
+  //     pressure: "sert",
+  //     pulse: "sdt",
+  //     respirRate: "sd",
+  //     spO2: "sgjf",
+  //     temp: "sfg",
+  //     time: "sghj",
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -109,12 +109,16 @@ class _ViewRecordState extends State<ViewRecord> {
                       border: Border.all(color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.circular(20)),
                   height: MediaQuery.of(context).size.height * 0.6,
-                  width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: ListView.builder(
                       itemCount: selected.patient.track.length,
                       itemBuilder: (context, i) {
+                        if (selected.patient.track[i].time == "null") {
+                          print("\n\n\n\n\nti,e null");
+                          return Container();
+                        }
+                        // if()
                         var values = [];
                         values.add(selected.patient.track[i].pulse == null
                             ? "N/A"
@@ -162,7 +166,7 @@ class _ViewRecordState extends State<ViewRecord> {
                           ),
                           //Use builder
                           title: new Text(
-                            "Record 1",
+                            "Record " + (i + 1).toString(),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6

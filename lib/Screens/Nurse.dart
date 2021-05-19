@@ -464,7 +464,9 @@ class NurseState extends State<Nurse> {
                           pressure: tecBP.text,
                           spO2: tecSPO2.text,
                           temp: tecTEMP.text,
-                          pulse: tecPULSE.text);
+                          pulse: tecPULSE.text,
+                          time: (DateTime.now().millisecondsSinceEpoch)
+                              .toString());
 
                       if (widget.edit == "Yes") {
                         print("\n\n\n\ inside edit on press");

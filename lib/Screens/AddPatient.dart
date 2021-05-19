@@ -12,6 +12,15 @@ class _AddPatientState extends State<AddPatient> {
 
   @override
   Widget build(BuildContext context) {
+    final added = SnackBar(
+        content: Text('added patient'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ));
+
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -75,6 +84,8 @@ class _AddPatientState extends State<AddPatient> {
                     child: ElevatedButton(
                       onPressed: () {
                         validateAndSave();
+                        ScaffoldMessenger.of(context).showSnackBar(added);
+                        Navigator.pop(context);
                       },
                       child: Text(
                         "Submit",

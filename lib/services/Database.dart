@@ -16,7 +16,7 @@ class DatabaseService {
         .orderBy("bedNo", descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((documents) {
-              print("\n\n\n\n\n\ndata ${documents.data()["age"]}");
+              print("\n\n\n\n\n\ndata ${documents.data()["Name"]}");
 
               return Patient.fromJson(documents.data());
             }).toList());
