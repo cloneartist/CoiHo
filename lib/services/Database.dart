@@ -11,7 +11,7 @@ class DatabaseService {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Stream<List<Patient>> gePatientDeets() {
-    return _db
+    var a = _db
         .collection("Patient")
         .orderBy("bedNo", descending: true)
         .snapshots()
@@ -20,9 +20,11 @@ class DatabaseService {
 
               return Patient.fromJson(documents.data());
             }).toList());
+
+    return a;
   }
 
-  Future<void> addNeTrack(List<Track> track, Track newVal) {
+  Future<void> addNeTrack(List<Track> track, Track newVal, String op) {
     if (track.isEmpty) {
       track = [];
     }
@@ -37,7 +39,7 @@ class DatabaseService {
         "pressure": element.pressure,
         "temp": element.temp,
         "pulse": element.pulse,
-        "respirRate": element.respirRate
+        "respirRate": element.respirRate,
       };
 
       a.add(temp);
@@ -48,7 +50,7 @@ class DatabaseService {
         FirebaseFirestore.instance.collection('Patient');
 
     print("\n\n\n\n\n\all the data here \n ${track.toString()}");
-    return patRef.doc("Patient1").update({"track": a}).then((value) {
+    return patRef.doc(op).update({"track": a}).then((value) {
       print("\n\n\nupdated yaaa");
     }).catchError(
         (onError) => print("\n\n\n error thrown ${onError.toString()}"));
@@ -60,11 +62,15 @@ class DatabaseService {
       String age,
       String phoneNumber,
       String bedNo}) {
-    Map<String, String> newPatient = {
+    var track = [{}];
+    // track.add({"presure": null});
+    Map<String, dynamic> newPatient = {
       "Name": name,
       "age": age,
       "opNo": opNumber,
       "bedNo": bedNo,
+      "critical": "No",
+      "track": track
     };
     // String sheetUrl =
     //     'https://script.google.com/macros/s/AKfycbyEzCqm6rZT1WhZAIiuZyyHy1xFbcH5hEqGnCSxU9M/dev?type=newPatient&opNumber=$opNumber&name=$name&age=$age&bedNo=$bedNo&phoneNumber=$phoneNumber';

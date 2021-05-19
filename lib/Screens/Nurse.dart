@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Nurse extends StatefulWidget {
+  // Nurse();
+  Nurse({this.edit = "No", this.index = -1});
+  String edit;
+  int index;
   @override
   NurseState createState() {
     return NurseState();
@@ -25,7 +29,7 @@ class NurseState extends State<Nurse> {
   String asd = " Not setState";
   // Patient patient = Patient();
 
-  bool validateAndSave(List<Track> track, Track newTrack) {
+  bool validateAndSave(List<Track> track, Track newTrack, String opN) {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
@@ -33,7 +37,7 @@ class NurseState extends State<Nurse> {
       print('$_spo2,$_bp,$_temp,$_resprate,$_pulse');
       DatabaseService _db = new DatabaseService();
 
-      _db.addNeTrack(track, newTrack);
+      _db.addNeTrack(track, newTrack, opN);
 
       return true;
     } else {
@@ -42,10 +46,24 @@ class NurseState extends State<Nurse> {
     }
   }
 
+  editActivate(Patient editpatient) {
+    tecSPO2.text = editpatient.track[widget.index].spO2;
+    tecBP.text = editpatient.track[widget.index].pressure;
+    tecTEMP.text = editpatient.track[widget.index].temp;
+    tecRESP.text = editpatient.track[widget.index].respirRate;
+    tecPULSE.text = editpatient.track[widget.index].pulse;
+    namCtrl.text = editpatient.name;
+    ageCtrl.text = editpatient.bedNo;
+  }
+
   @override
   Widget build(BuildContext context) {
     var patients = Provider.of<List<Patient>>(context).toList();
     Selected selected = Provider.of<Selected>(context);
+    if (widget.edit == "Yes") {
+      print("\n\n\n\n\n\n Edit Page activated");
+      editActivate(selected.patient);
+    }
     // String patient = selected.getSelected;
 
     double height = MediaQuery.of(context).size.height;
@@ -402,7 +420,8 @@ class NurseState extends State<Nurse> {
                             "\n\n\n\n\n\n\n\n\n EEmpty ${selected.patient.track}");
                         selected.patient.track = [];
                       }
-                      validateAndSave(selected.patient.track, trac);
+                      validateAndSave(
+                          selected.patient.track, trac, selected.patient.opNo);
                       // validateAndSave(selected.patient.track,)
                     },
                     child: Text('Submit'),

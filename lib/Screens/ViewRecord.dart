@@ -1,5 +1,8 @@
 import 'package:coho/Models/Patient.dart';
+import 'package:coho/Models/Selected.dart';
+import 'package:coho/Screens/Nurse.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ViewRecord extends StatefulWidget {
   @override
@@ -7,9 +10,8 @@ class ViewRecord extends StatefulWidget {
 }
 
 class _ViewRecordState extends State<ViewRecord> {
-  
   // Delete this
-  
+
   List<Track> vehicles = [
     new Track(
       pressure: "s",
@@ -29,13 +31,12 @@ class _ViewRecordState extends State<ViewRecord> {
     ),
   ];
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     dynamic TxtTheme = Theme.of(context).textTheme.bodyText1;
+    Selected selected = Provider.of<Selected>(context);
+    print("\n\n\n\n\n\n\n on page ${selected.patient.track[0].pressure}");
+    // Patient electedPatient = selected.getSelected;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -83,12 +84,12 @@ class _ViewRecordState extends State<ViewRecord> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Ken Adams", style: TxtTheme),
-                          Text("18", style: TxtTheme),
-                          Text("#324434", style: TxtTheme),
-                          Text("8129720659", style: TxtTheme),
-                          Text("134", style: TxtTheme),
-                          Text("Normal",
+                          Text(selected.patient.name, style: TxtTheme),
+                          Text(selected.patient.age, style: TxtTheme),
+                          Text(selected.patient.opNo, style: TxtTheme),
+                          Text(selected.patient.bedNo, style: TxtTheme),
+                          Text(selected.patient.bedNo, style: TxtTheme),
+                          Text(selected.patient.critical,
                               style: TxtTheme), // if possible else delete
                         ],
                       ),
@@ -98,23 +99,55 @@ class _ViewRecordState extends State<ViewRecord> {
                 SizedBox(
                   height: 10,
                 ),
+                // selected.patient.track
+                // selected.patient.track[0].pressure == null
+                //     ? Text("empty")
+                //     :
+
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.circular(20)),
-                  height: MediaQuery.of(context).size.height*0.6,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: ListView.builder(     
-                      itemCount: vehicles.length,
+                    child: ListView.builder(
+                      itemCount: selected.patient.track.length,
                       itemBuilder: (context, i) {
+                        var values = [];
+                        values.add(selected.patient.track[i].pulse == null
+                            ? "N/A"
+                            : selected.patient.track[i].pulse);
+                        values.add(selected.patient.track[i].temp == null
+                            ? "N/A"
+                            : selected.patient.track[i].temp);
+                        values.add(selected.patient.track[i].spO2 == null
+                            ? "N/A"
+                            : selected.patient.track[i].spO2);
+                        values.add(selected.patient.track[i].time == null
+                            ? "N/A"
+                            : selected.patient.track[i].time);
+                        values.add(selected.patient.track[i].respirRate == null
+                            ? "N/A"
+                            : selected.patient.track[i].respirRate);
+                        values.add(selected.patient.track[i].pressure == null
+                            ? "N/A"
+                            : selected.patient.track[i].pressure);
+                        print(values);
                         return new ExpansionTile(
-                          leading: IconButton(                            
+                          leading: IconButton(
                             icon: Icon(Icons.edit),
-                            onPressed: (){
+                            onPressed: () {
+                              // selected.changeSelect(pa)
                               //TODO: Goto edit (Permission to edit for doc only)
                               print("Edit button clicked!");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Nurse(edit: "Yes", index: i)),
+                              );
                             },
                           ),
                           backgroundColor: Colors.white,
@@ -137,7 +170,8 @@ class _ViewRecordState extends State<ViewRecord> {
                                       bottomLeft: Radius.circular(10),
                                       bottomRight: Radius.circular(10))),
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 20, 0, 20),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -147,15 +181,15 @@ class _ViewRecordState extends State<ViewRecord> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'SpO2: ' + vehicles[i].spO2,
+                                          'SpO2: ' + values[2],
                                           style: TxtTheme,
                                         ),
                                         Text(
-                                          'Pulse: ' + vehicles[i].pulse,
+                                          'Pulse: ' + values[0],
                                           style: TxtTheme,
                                         ),
                                         Text(
-                                          'Temp: ' + vehicles[i].temp,
+                                          'Temp: ' + values[1],
                                           style: TxtTheme,
                                         ),
                                       ],
@@ -165,17 +199,16 @@ class _ViewRecordState extends State<ViewRecord> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Pressure: ' + vehicles[i].pressure,
+                                          'Pressure: ' + values[5],
                                           style: TxtTheme,
                                         ),
                                         Text(
-                                          'Resp. rate: ' +
-                                              vehicles[i].respirRate,
+                                          'Resp. rate: ' + values[4],
                                           style: TxtTheme,
-                                          softWrap:true ,
+                                          softWrap: true,
                                         ),
                                         Text(
-                                          'Time: ' + vehicles[i].time,
+                                          'Time: ' + values[3],
                                           style: TxtTheme,
                                         ),
                                       ],

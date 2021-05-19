@@ -32,12 +32,11 @@ Future<void> main() async {
 
   // print("\n\n\nEntered\n\n\n\n\n");
   runApp(
-    // DevicePreview(
-    //   enabled: false,
-    //   builder: (context) => MyApp(), // Wrap your app
-    // ),
-    MyApp()
-  );
+      // DevicePreview(
+      //   enabled: false,
+      //   builder: (context) => MyApp(), // Wrap your app
+      // ),
+      MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -60,14 +59,14 @@ class MyApp extends StatelessWidget {
             SizerUtil().init(contraints, orientation);
             return MaterialApp(
               title: 'Flutter Demo',
-              initialRoute: '/viewrecord',
+              initialRoute: '/',
               routes: {
                 '/': (context) => MyHomePage(),
                 '/login': (context) => Login(),
                 '/nurse': (context) => Nurse(),
                 '/viewpatient': (context) => ViewPatient(),
                 '/addpatient': (context) => AddPatient(),
-                '/viewrecord': (context) =>ViewRecord(),
+                '/viewrecord': (context) => ViewRecord(),
                 // '/ProfilePerson': (context) => ProfilePerson(),
               },
               theme: ThemeData(

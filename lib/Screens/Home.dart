@@ -92,7 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      showPopUp(context);
+                      Navigator.pushNamed(context, '/nurse');
+                      // showPopUp(context);
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 55, 50),

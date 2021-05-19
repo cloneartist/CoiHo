@@ -6,13 +6,14 @@ class Selected with ChangeNotifier {
   String initialised = "Not";
 
   changeSelect(Patient pat) {
+    print("from provider ${pat.name}");
     patient = pat;
     initialised = "aaa Yes";
     notifyListeners();
   }
 
   get getSelected {
-    return initialised;
+    return patient;
   }
 
   Future<void> tMatches(String fromm) async {}
