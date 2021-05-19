@@ -139,14 +139,19 @@ class _ViewRecordState extends State<ViewRecord> {
                           leading: IconButton(
                             icon: Icon(Icons.edit),
                             onPressed: () {
+                              // selected.changeSelect()
+                              print(
+                                  "\n\nbefor nav ${selected.patient.track[i].spO2} ");
                               // selected.changeSelect(pa)
                               //TODO: Goto edit (Permission to edit for doc only)
                               print("Edit button clicked!");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        Nurse(edit: "Yes", index: i)),
+                                    builder: (context) => Nurse(
+                                        edit: "Yes",
+                                        index: i,
+                                        pat: selected.patient)),
                               );
                             },
                           ),

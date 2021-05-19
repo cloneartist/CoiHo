@@ -6,9 +6,10 @@ import 'package:provider/provider.dart';
 
 class Nurse extends StatefulWidget {
   // Nurse();
-  Nurse({this.edit = "No", this.index = -1});
+  Nurse({this.edit = "No", this.index = -1, this.pat});
   String edit;
   int index;
+  Patient pat;
   @override
   NurseState createState() {
     return NurseState();
@@ -24,6 +25,7 @@ class NurseState extends State<Nurse> {
   final TextEditingController tecPULSE = TextEditingController();
   final TextEditingController namCtrl = TextEditingController();
   final TextEditingController ageCtrl = TextEditingController();
+  final TextEditingController bedCtrl = TextEditingController();
 
   String _uid, _name, _age, _spo2, _bp, _temp, _resprate, _pulse;
   String asd = " Not setState";
@@ -46,28 +48,73 @@ class NurseState extends State<Nurse> {
     }
   }
 
-  editActivate(Patient editpatient) {
-    tecSPO2.text = editpatient.track[widget.index].spO2;
-    tecBP.text = editpatient.track[widget.index].pressure;
-    tecTEMP.text = editpatient.track[widget.index].temp;
-    tecRESP.text = editpatient.track[widget.index].respirRate;
-    tecPULSE.text = editpatient.track[widget.index].pulse;
-    namCtrl.text = editpatient.name;
-    ageCtrl.text = editpatient.bedNo;
+  // editActivate(Patient editpatient) {
+  //   tecSPO2.text = editpatient.track[widget.index].spO2;
+  //   tecBP.text = editpatient.track[widget.index].pressure;
+  //   tecTEMP.text = editpatient.track[widget.index].temp;
+  //   tecRESP.text = editpatient.track[widget.index].respirRate;
+  //   tecPULSE.text = editpatient.track[widget.index].pulse;
+  //   namCtrl.text = editpatient.name;
+  //   ageCtrl.text = editpatient.bedNo;
+  // }
+
+  @override
+  void initState() {
+    if (widget.edit == "Yes") {
+      tecSPO2.text = widget.pat.track[widget.index].spO2;
+      tecBP.text = widget.pat.track[widget.index].pressure;
+      tecTEMP.text = widget.pat.track[widget.index].temp;
+      tecRESP.text = widget.pat.track[widget.index].respirRate;
+      tecPULSE.text = widget.pat.track[widget.index].pulse;
+      namCtrl.text = widget.pat.name;
+      ageCtrl.text = widget.pat.age;
+      bedCtrl.text = widget.pat.bedNo;
+    }
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void resetControllers() {
+    tecSPO2.text = "";
+    tecBP.text = "";
+    tecTEMP.text = "";
+    tecRESP.text = "";
+    tecPULSE.text = "";
+    namCtrl.text = "";
+    ageCtrl.text = "";
+    bedCtrl.text = "";
   }
 
   @override
   Widget build(BuildContext context) {
     var patients = Provider.of<List<Patient>>(context).toList();
     Selected selected = Provider.of<Selected>(context);
-    if (widget.edit == "Yes") {
-      print("\n\n\n\n\n\n Edit Page activated");
-      editActivate(selected.patient);
-    }
+    // if (widget.edit == "Yes") {
+    //   print("\n\n\n\n\n\n Edit Page activated");
+    //   editActivate(selected.patient);
+    // }
     // String patient = selected.getSelected;
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    final updated = SnackBar(
+        content: Text('Succesfully updated'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ));
+
+    final created = SnackBar(
+        content: Text('Succesfully added'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ));
 
     return Scaffold(
         appBar: AppBar(
@@ -87,6 +134,7 @@ class NurseState extends State<Nurse> {
                     height: 70,
                     width: 350,
                     child: TextFormField(
+                      controller: bedCtrl,
                       decoration:
                           textInputDecoration.copyWith(labelText: 'Bed No'),
                       validator: (value) =>
@@ -188,7 +236,10 @@ class NurseState extends State<Nurse> {
                             validator: (value) => value.isEmpty
                                 ? "  Please Enter Sp02 Level"
                                 : null,
-                            onSaved: (value) => _spo2 = value,
+                            onSaved: (value) {
+                              // selected.patient.track[]
+                              _spo2 = value;
+                            },
                           ),
                         ),
                       ),
@@ -415,16 +466,36 @@ class NurseState extends State<Nurse> {
                           temp: tecTEMP.text,
                           pulse: tecPULSE.text);
 
-                      if (selected.patient.track.isEmpty) {
-                        print(
-                            "\n\n\n\n\n\n\n\n\n EEmpty ${selected.patient.track}");
-                        selected.patient.track = [];
+                      if (widget.edit == "Yes") {
+                        print("\n\n\n\ inside edit on press");
+                        selected.updatetraack(widget.index, trac);
+                        DatabaseService _db = new DatabaseService();
+                        List<Track> tempTrack = selected.patient.track;
+                        tempTrack[widget.index] = trac;
+
+                        _db.editTrack(selected.patient.opNo, tempTrack);
+
+                        ScaffoldMessenger.of(context).showSnackBar(updated);
+                        resetControllers();
+                        // _formKey.currentState.reset();
+
+                      } else {
+                        if (selected.patient.track.isEmpty) {
+                          print(
+                              "\n\n\n\n\n\n\n\n\n EEmpty ${selected.patient.track}");
+                          selected.patient.track = [];
+                        }
+                        validateAndSave(selected.patient.track, trac,
+                            selected.patient.opNo);
+
+                        ScaffoldMessenger.of(context).showSnackBar(created);
+                        resetControllers();
                       }
-                      validateAndSave(
-                          selected.patient.track, trac, selected.patient.opNo);
+
                       // validateAndSave(selected.patient.track,)
                     },
-                    child: Text('Submit'),
+                    child:
+                        widget.edit == "Yes" ? Text("Update") : Text('Submit'),
                   ),
                 ),
               ],

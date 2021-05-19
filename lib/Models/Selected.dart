@@ -12,6 +12,11 @@ class Selected with ChangeNotifier {
     notifyListeners();
   }
 
+  updatetraack(int index, Track track) {
+    patient.track[index] = track;
+    notifyListeners();
+  }
+
   get getSelected {
     return patient;
   }

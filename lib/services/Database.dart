@@ -24,6 +24,31 @@ class DatabaseService {
     return a;
   }
 
+  Future<void> editTrack(String docName, List<Track> track) {
+    var a = [];
+    track.forEach((element) {
+      var temp = {
+        "time": element.time,
+        "spO2": element.spO2,
+        "pressure": element.pressure,
+        "temp": element.temp,
+        "pulse": element.pulse,
+        "respirRate": element.respirRate,
+      };
+      a.add(temp);
+      print("\n\n\n\n\n each val  from edit track is ${temp.toString()}");
+    });
+    print("\n\n\n\n\n each val  from edit track is ${a.toString()}");
+    CollectionReference patRef =
+        FirebaseFirestore.instance.collection('Patient');
+
+    print("\n\n\n\n\n\all the data here \n ${track.toString()}");
+    return patRef.doc(docName).update({"track": a}).then((value) {
+      print("\n\n\nupdated yaaa");
+    }).catchError(
+        (onError) => print("\n\n\n error thrown ${onError.toString()}"));
+  }
+
   Future<void> addNeTrack(List<Track> track, Track newVal, String op) {
     if (track.isEmpty) {
       track = [];
