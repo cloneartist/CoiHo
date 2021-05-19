@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text("welcome"),
+        title: Text("Welcome"),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
@@ -201,54 +201,54 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void showPopUp(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: Text("Enter Bed Number"),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: textInputDecoration,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          //search for bed number in db
-                        },
-                        child: Text(
-                          "Ok",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.blue,
-                            onPrimary: Colors.lightBlueAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          );
-        });
-  }
+  // void showPopUp(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (_) {
+  //         return AlertDialog(
+  //           shape:
+  //               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  //           title: Text("Enter Bed Number"),
+  //           actions: [
+  //             Padding(
+  //               padding: const EdgeInsets.all(8.0),
+  //               child: Column(
+  //                 children: [
+  //                   Container(
+  //                     width: MediaQuery.of(context).size.width,
+  //                     child: TextFormField(
+  //                       keyboardType: TextInputType.number,
+  //                       decoration: textInputDecoration,
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 10,
+  //                   ),
+  //                   Container(
+  //                     width: MediaQuery.of(context).size.width,
+  //                     height: 50,
+  //                     child: ElevatedButton(
+  //                       onPressed: () {
+  //                         //search for bed number in db
+  //                       },
+  //                       child: Text(
+  //                         "Ok",
+  //                         style: TextStyle(color: Colors.white),
+  //                       ),
+  //                       style: ElevatedButton.styleFrom(
+  //                           primary: Colors.blue,
+  //                           onPrimary: Colors.lightBlueAccent,
+  //                           shape: RoundedRectangleBorder(
+  //                               borderRadius: BorderRadius.circular(10))),
+  //                     ),
+  //                   )
+  //                 ],
+  //               ),
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 
   dynamic textInputDecoration = InputDecoration(
     labelStyle: TextStyle(

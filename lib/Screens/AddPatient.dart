@@ -62,9 +62,20 @@ class _AddPatientState extends State<AddPatient> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     decoration: textInputDecoration.copyWith(
-                        labelText: 'OP Number(Optional)'),
+                        labelText: 'OP Number(Mandatory)'),
                     // validator: (value) => value.isEmpty ? "  Please enter OP number" : null,
                     onSaved: (value) => opNumber = value,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  
+                  TextFormField(
+                    decoration: textInputDecoration.copyWith(
+                        labelText: 'Bed number(Mandatory)'),
+                    validator: (value) =>
+                        value.isEmpty ? "  Please bed number" : null,
+                    onSaved: (value) => bedNo = value,
                   ),
                   SizedBox(
                     height: 20,
@@ -76,16 +87,7 @@ class _AddPatientState extends State<AddPatient> {
                     // validator: (value) => value.isEmpty ? "  Please enter Phone Number" : null,
                     onSaved: (value) => phone = value,
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    decoration: textInputDecoration.copyWith(
-                        labelText: 'Bed number(Mandatory)'),
-                    validator: (value) =>
-                        value.isEmpty ? "  Please bed number" : null,
-                    onSaved: (value) => bedNo = value,
-                  ),
+                  
                   SizedBox(
                     height: 20,
                   ),
