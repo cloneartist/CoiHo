@@ -475,6 +475,7 @@ class NurseState extends State<Nurse> {
                         padding: EdgeInsets.fromLTRB(60, 20, 60, 20)),
                     onPressed: () {
                       Track trac = Track(
+                          respirRate: tecRESP.text,
                           pressure: tecBP.text,
                           spO2: tecSPO2.text,
                           temp: tecTEMP.text,
