@@ -119,13 +119,13 @@ class _ViewRecordState extends State<ViewRecord> {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.circular(20)),
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.9,
                   child: Padding(
                     padding: const EdgeInsets.all(3.0),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
-                        columnSpacing: MediaQuery.of(context).size.width * 0.05,
+                        columnSpacing: MediaQuery.of(context).size.width * 0.1,
                         columns: [
                           DataColumn(label: Text('TIME')),
                           DataColumn(label: Text('temp')),
