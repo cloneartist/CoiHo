@@ -12,30 +12,40 @@ class ViewRecord extends StatefulWidget {
 class _ViewRecordState extends State<ViewRecord> {
   // Delete this
 
-  List<Track> vehicles = [
-    new Track(
-      pressure: "s",
-      pulse: "s",
-      respirRate: "927393",
-      spO2: "w",
-      temp: "sd",
-      time: "sd",
-    ),
-    new Track(
-      pressure: "sert",
-      pulse: "sdt",
-      respirRate: "sd",
-      spO2: "sgjf",
-      temp: "sfg",
-      time: "sghj",
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    Color geColor(String tp, var vall) {
+      print("\n\n\n\n\n\n\n\n\n\n\n\n value ${vall.toString()} ");
+      if (vall.toString() != "null") {
+        int val = int.parse(vall);
+        print("\n\n\n\n\n\n\n something here $tp\t\t$val");
+        if ((tp == "BpH" && (val > 180 || val < 70)) ||
+            (tp == "BpL" && (val > 110 || val < 40)) ||
+            (tp == "spo2" && val < 90) ||
+            (tp == "rr" && val > 30) ||
+            (tp == "pu" && (val > 120 || val < 40))) {
+          print("color2");
+          return Colors.redAccent;
+        } else if ((tp == "BpH" && (val > 140 && val < 180)) ||
+            (tp == "BpL") && (val > 90 && val < 110) ||
+            (tp == "spo2" && (val >= 91 && val < 95)) ||
+            (tp == "pu" &&
+                ((val >= 40 && val <= 599) || (val >= 101 && val < 120))) ||
+            (tp == "rr" && (val >= 24 && val <= 29))) {
+          print("color3");
+          return Colors.yellow;
+        } else if ((tp == "BpH") ||
+            (tp == "BpL") ||
+            (tp == "spo2") ||
+            (tp == "rr") ||
+            (tp == "pu")) {}
+      }
+      return Colors.white;
+    }
+
     dynamic TxtTheme = Theme.of(context).textTheme.bodyText1;
     Selected selected = Provider.of<Selected>(context);
-    print("\n\n\n\n\n\n\n on page ${selected.patient.track[0].pressure}");
+    print("\n\n\n\n\n\n\n on page ${selected.patient.track[0].pressureH}");
     // Patient electedPatient = selected.getSelected;
     return SafeArea(
       child: Scaffold(
@@ -109,28 +119,36 @@ class _ViewRecordState extends State<ViewRecord> {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.circular(20)),
-                  height: MediaQuery.of(context).size.height * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.9,
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(3.0),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
+                        columnSpacing: MediaQuery.of(context).size.width * 0.05,
                         columns: [
-                          DataColumn(label: Text('TIMESTAMP')),
-                          DataColumn(label: Text('TEMPERATURE')),
+                          DataColumn(label: Text('TIME')),
+                          DataColumn(label: Text('temp')),
                           DataColumn(label: Text('PULSE')),
-                          DataColumn(label: Text('RESPIRATory\nRATE')),
+                          DataColumn(label: Text('RpRATE')),
                           DataColumn(label: Text('SPO2')),
-                          DataColumn(label: Text('PRESSURE')),
+                          DataColumn(label: Text('BPH')),
+                          DataColumn(label: Text('BPL')),
                         ],
                         rows: selected.patient.track
                             .map((track) => DataRow(cells: [
                                   DataCell(Text(track.time ?? 'N/A')),
                                   DataCell(Text(track.temp ?? 'N/A')),
-                                  DataCell(Text(track.pulse ?? 'N/A')),
-                                  DataCell(Text(track.respirRate ?? 'N/A')),
-                                  DataCell(Text(track.spO2 ?? 'N/A')),
-                                  DataCell(Text(track.pressure ?? 'N/A')),
+                                  DataCell(buildEachCell(
+                                      track.pulse, "pu", geColor)),
+                                  DataCell(buildEachCell(
+                                      track.respirRate, "rr", geColor)),
+                                  DataCell(buildEachCell(
+                                      track.spO2, "spo2", geColor)),
+                                  DataCell(buildEachCell(
+                                      track.pressureH, "BpH", geColor)),
+                                  DataCell(buildEachCell(
+                                      track.pressureL, "BpL", geColor)),
                                 ]))
                             .toList(),
                       ),
@@ -261,6 +279,15 @@ class _ViewRecordState extends State<ViewRecord> {
           ),
         ),
       ),
+    );
+  }
+
+  Container buildEachCell(
+      String track, String col, Color geColor(String tp, dynamic vall)) {
+    print(track);
+    return Container(
+      child: Text(track ?? 'N/A'),
+      color: geColor(col, track),
     );
   }
 }
