@@ -2,15 +2,18 @@
 
 A new Flutter project.
 
-## Getting Started
+## Purpose
 
-This project is a starting point for a Flutter application.
+This project was made as a solution to the problem of bed management in hospitals during Covid crisis
 
-A few resources to get you started if this is your first Flutter project:
+The web app allows 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Addition of new patients
+- Entering details of patients
+- Entering of patient vitals by Nurses
+- Viewing of the vitals that are color coded to indicate critical cases
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Checkout the site hosted in
+https://coho-1f0a9.web.app/#/ 
+
+
